@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>United Immigration</title>
+<title>United Immigration Premium</title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<!-- Three.js -->
+<!-- Three.js for 3D globe -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+/* Global Styles */
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;background:#0a0f1c;color:white;overflow-x:hidden;}
 
 /* Progress Bar */
@@ -20,16 +21,17 @@ body{font-family:'Poppins',sans-serif;background:#0a0f1c;color:white;overflow-x:
 
 /* INTRO */
 #intro{position:fixed;width:100%;height:100vh;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;overflow:hidden;}
-#planeIntro{position:absolute;width:300px;left:-400px;top:50%;transform:translateY(-50%);animation:flyAcross 4s ease forwards;}
+#planeIntro{position:absolute;width:300px;left:-400px;top:50%;transform:translateY(-50%);z-index:1001;animation:flyAcross 4s ease forwards;}
 @keyframes flyAcross{0%{left:-400px;}100%{left:120%;}}
-#introOverlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.75);opacity:0;animation:fadeOverlay 3s forwards 2s;}
+#introOverlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.75);opacity:0;animation:fadeOverlay 3s forwards 2s;z-index:1000;}
 @keyframes fadeOverlay{to{opacity:1;}}
-#introLogo{opacity:0;z-index:10;text-align:center;animation:logoReveal 2s forwards 3s;}
+#introLogo{opacity:0;z-index:1001;text-align:center;animation:logoReveal 2s forwards 3s;}
 @keyframes logoReveal{to{opacity:1; transform:scale(1);}}
 #introLogo img{width:150px;filter:drop-shadow(0 0 30px gold);}
 #introLogo h1{font-family:'Playfair Display',serif;font-size:44px;margin-top:20px;background:linear-gradient(90deg,#d4af37,#fff,#d4af37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* HERO WITH 3D GLOBE */
+/* MAIN WEBSITE */
+#mainHero, .section, footer{opacity:0;transition:opacity 2s ease;}
 #mainHero{position:relative;width:100%;height:100vh;overflow:hidden;text-align:center;color:white;}
 #globeContainer{position:absolute;width:100%;height:100%;top:0;left:0;}
 .heroContent{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;}
@@ -60,10 +62,10 @@ footer{padding:20px;text-align:center;background:#000;}
 
 <!-- INTRO -->
 <div id="intro">
-<img id="planeIntro" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Airplane_silhouette.png">
+<img id="planeIntro" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Airplane_silhouette.png" alt="Plane">
 <div id="introOverlay"></div>
 <div id="introLogo">
-<img src="https://i.ibb.co/rGXq8WjN/cropped-circle-image.png">
+<img src="https://i.ibb.co/rGXq8WjN/cropped-circle-image.png" alt="Logo">
 <h1>United Immigration</h1>
 </div>
 </div>
@@ -142,14 +144,17 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 });
 
 // AUDIO & INTRO TIMELINE
-setTimeout(()=>document.getElementById("planeSound").play(),500);
-setTimeout(()=>document.getElementById("intro").style.display="none",6000);
-
 document.addEventListener("click",()=>document.getElementById("bgm").play());
+setTimeout(()=>document.getElementById("planeSound").play(),500);
 
-document.querySelectorAll("button").forEach(btn=>{
-btn.addEventListener("click",()=>document.getElementById("clickSound").play());
-});
+// SHOW MAIN WEBSITE AFTER INTRO
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+document.getElementById("mainHero").style.opacity = 1;
+document.querySelectorAll('.section').forEach(sec => sec.style.opacity = 1);
+document.querySelector('footer').style.opacity = 1;
+document.getElementById("bgm").play();
+},6000);
 
 // COUNTERS
 function animateCounter(id,target){
