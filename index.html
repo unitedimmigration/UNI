@@ -12,23 +12,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 
 <style>
-/* Global Styles */
+/* GLOBAL */
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;background:#0a0f1c;color:white;overflow-x:hidden;}
 
-/* Progress Bar */
+/* PROGRESS BAR */
 #progress{position:fixed;top:0;left:0;height:4px;width:0%;background:linear-gradient(90deg,#d4af37,#fff,#d4af37);z-index:9999;transition:0.2s;}
 
 /* INTRO */
-#intro{position:fixed;width:100%;height:100vh;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;overflow:hidden;}
-#planeIntro{position:absolute;width:300px;left:-400px;top:50%;transform:translateY(-50%);z-index:1001;animation:flyAcross 4s ease forwards;}
-@keyframes flyAcross{0%{left:-400px;}100%{left:120%;}}
-#introOverlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.75);opacity:0;animation:fadeOverlay 3s forwards 2s;z-index:1000;}
-@keyframes fadeOverlay{to{opacity:1;}}
-#introLogo{opacity:0;z-index:1001;text-align:center;animation:logoReveal 2s forwards 3s;}
-@keyframes logoReveal{to{opacity:1; transform:scale(1);}}
-#introLogo img{width:150px;filter:drop-shadow(0 0 30px gold);}
-#introLogo h1{font-family:'Playfair Display',serif;font-size:44px;margin-top:20px;background:linear-gradient(90deg,#d4af37,#fff,#d4af37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+#intro{
+  position:fixed;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;overflow:hidden;background:rgba(0,0,0,0);
+}
+#introLogo{
+  opacity:0;
+  z-index:1001; /* logo above plane */
+  text-align:center;
+  animation:logoReveal 1s forwards;
+}
+#introLogo img{
+  width:150px;
+  filter:drop-shadow(0 0 30px gold);
+}
+#introLogo h1{
+  font-family:'Playfair Display',serif;font-size:44px;margin-top:20px;
+  background:linear-gradient(90deg,#d4af37,#fff,#d4af37);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+@keyframes logoReveal{
+  to{opacity:1;}
+}
+
+#planeIntro{
+  position:absolute;
+  top:50%;
+  left:-400px;
+  transform:translateY(-50%);
+  width:300px;
+  z-index:1000; /* behind logo */
+  animation:flyAcross 2s linear forwards 1s; /* starts 1s after logo */
+}
+@keyframes flyAcross{
+  0%{left:-400px;}
+  100%{left:120%;}
+}
+
+#introOverlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  z-index:999; /* behind logo & plane */
+}
 
 /* MAIN WEBSITE */
 #mainHero, .section, footer{opacity:0;transition:opacity 2s ease;}
@@ -62,30 +97,35 @@ footer{padding:20px;text-align:center;background:#000;}
 
 <!-- INTRO -->
 <div id="intro">
-<img id="planeIntro" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Airplane_silhouette.png" alt="Plane">
-<div id="introOverlay"></div>
-<div id="introLogo">
-<img src="https://i.ibb.co/rGXq8WjN/cropped-circle-image.png" alt="Logo">
-<h1>United Immigration</h1>
-</div>
+  <!-- Plane flies behind logo -->
+  <img id="planeIntro" src="https://i.ibb.co/60drbXH8/cz-Nmcy1wcml2-YXRl-L3-Jhd3-Bpe-GVs-X2lt-YWdlcy93-ZWJza-XRl-X2-Nvbn-Rlbn-Qvc-C0z-ZC1y-YXkt-YWlyc-Gxhbm-Ut.jpg" alt="Plane">
+
+  <!-- Semi-transparent overlay -->
+  <div id="introOverlay"></div>
+
+  <!-- Logo appears first -->
+  <div id="introLogo">
+    <img src="https://i.ibb.co/Qv5pnDPk/cz-Nmcy1wcml2-YXRl-L3-Jhd3-Bpe-GVs-X2lt-YWdlcy93-ZWJza-XRl-X2-Nvbn-Rlbn-Qvc-C0z-ZC1y-YXkt-YWlyc-Gxhbm-Ut.jpg" alt="United Immigration Logo">
+    <h1>United Immigration</h1>
+  </div>
 </div>
 
 <!-- MAIN HERO -->
 <section id="mainHero">
-<div id="globeContainer"></div>
-<div class="heroContent">
-<h1>United Immigration</h1>
-<p>Your Gateway To Global Opportunities</p>
-</div>
+  <div id="globeContainer"></div>
+  <div class="heroContent">
+    <h1>United Immigration</h1>
+    <p>Your Gateway To Global Opportunities</p>
+  </div>
 </section>
 
 <!-- STATS -->
 <section class="section">
 <h2>Our Achievements</h2>
 <div class="stats">
-<div class="stat"><h2 id="counter1">0</h2><p>Successful Visas</p></div>
-<div class="stat"><h2 id="counter2">0</h2><p>Happy Clients</p></div>
-<div class="stat"><h2 id="counter3">0</h2><p>Countries Served</p></div>
+  <div class="stat"><h2 id="counter1">0</h2><p>Successful Visas</p></div>
+  <div class="stat"><h2 id="counter2">0</h2><p>Happy Clients</p></div>
+  <div class="stat"><h2 id="counter3">0</h2><p>Countries Served</p></div>
 </div>
 </section>
 
@@ -106,9 +146,6 @@ footer{padding:20px;text-align:center;background:#000;}
 </audio>
 <audio id="planeSound">
 <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_3eacb22d6a.mp3" type="audio/mpeg">
-</audio>
-<audio id="clickSound">
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8bba3c0be.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -131,38 +168,39 @@ scene.add(light);
 camera.position.z = 8;
 
 function animateGlobe(){
-requestAnimationFrame(animateGlobe);
-globe.rotation.y += 0.002;
-renderer.render(scene,camera);
+  requestAnimationFrame(animateGlobe);
+  globe.rotation.y += 0.002;
+  renderer.render(scene,camera);
 }
 animateGlobe();
 
 window.addEventListener('resize',()=>{
-camera.aspect=window.innerWidth/window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth,window.innerHeight);
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
 });
 
 // AUDIO & INTRO TIMELINE
 document.addEventListener("click",()=>document.getElementById("bgm").play());
-setTimeout(()=>document.getElementById("planeSound").play(),500);
+setTimeout(()=>document.getElementById("planeSound").play(),1000);
 
-// SHOW MAIN WEBSITE AFTER INTRO
+// SHOW MAIN WEBSITE AFTER INTRO (2 seconds)
 setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-document.getElementById("mainHero").style.opacity = 1;
-document.querySelectorAll('.section').forEach(sec => sec.style.opacity = 1);
-document.querySelector('footer').style.opacity = 1;
-document.getElementById("bgm").play();
-},6000);
+  document.getElementById("intro").style.display="none";
+  document.getElementById("mainHero").style.opacity = 1;
+  document.querySelectorAll('.section').forEach(sec => sec.style.opacity = 1);
+  document.querySelector('footer').style.opacity = 1;
+  document.getElementById("bgm").play();
+},2000);
 
 // COUNTERS
 function animateCounter(id,target){
-let count=0,speed=target/200;
-let counter=setInterval(()=>{
-count+=speed;if(count>=target){count=target;clearInterval(counter);}
-document.getElementById(id).innerText=Math.floor(count);
-},10);
+  let count=0,speed=target/200;
+  let counter=setInterval(()=>{
+    count+=speed;
+    if(count>=target){count=target;clearInterval(counter);}
+    document.getElementById(id).innerText=Math.floor(count);
+  },10);
 }
 animateCounter("counter1",500);
 animateCounter("counter2",1200);
@@ -171,18 +209,18 @@ animateCounter("counter3",15);
 // TESTIMONIALS
 let slides=document.querySelectorAll(".slide"),index=0;
 setInterval(()=>{
-slides[index].classList.remove("active");
-index=(index+1)%slides.length;
-slides[index].classList.add("active");
+  slides[index].classList.remove("active");
+  index=(index+1)%slides.length;
+  slides[index].classList.add("active");
 },3000);
 
 // BACK TO TOP & PROGRESS
 let topBtn=document.getElementById("topBtn"),progress=document.getElementById("progress");
 window.onscroll=()=>{
-let scroll=document.documentElement.scrollTop;
-let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-progress.style.width=(scroll/height)*100+"%";
-topBtn.style.display=scroll>300?"block":"none";
+  let scroll=document.documentElement.scrollTop;
+  let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  progress.style.width=(scroll/height)*100+"%";
+  topBtn.style.display=scroll>300?"block":"none";
 };
 topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 </script>
