@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>United Immigration</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Poppins',sans-serif;
+background:#0a0a0f;
+color:white;
+overflow-x:hidden;
+scroll-behavior:smooth;
+}
+
+/* ================= LOADER ================= */
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+flex-direction:column;
+}
+.loader-plane{
+font-size:50px;
+animation:spin 2s linear infinite;
+color:#d4af37;
+}
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+/* ================= PROGRESS BAR ================= */
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+background:#d4af37;
+width:0%;
+z-index:10000;
+}
+
+/* ================= NAV ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
+padding:20px;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+nav a{
+color:#d4af37;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+nav a:hover{
+color:white;
+}
+
+/* ================= HERO ================= */
+header{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+background:radial-gradient(circle at bottom,#1a1a2e,#0a0a0f 70%);
+}
+h1{
+font-family:'Playfair Display',serif;
+font-size:65px;
+background:linear-gradient(90deg,#d4af37,#fff,#d4af37);
+background-size:200%;
+-webkit-background-clip:text;
+color:transparent;
+animation:shine 5s linear infinite;
+}
+@keyframes shine{
+0%{background-position:0%}
+100%{background-position:200%}
+}
+header p{
+margin-top:20px;
+opacity:0.8;
+font-size:18px;
+}
+
+/* ================= AIRPLANE PATH ================= */
+.plane{
+position:absolute;
+font-size:35px;
+offset-path:path("M-100,400 C400,50 800,600 1400,200");
+offset-rotate:auto;
+animation:fly 15s linear infinite;
+}
+@keyframes fly{
+0%{offset-distance:0%}
+100%{offset-distance:100%}
+}
+
+/* ================= CLOUDS ================= */
+.cloud{
+position:absolute;
+font-size:80px;
+opacity:0.05;
+animation:cloudMove 80s linear infinite;
+}
+@keyframes cloudMove{
+0%{left:-200px}
+100%{left:120%}
+}
+
+/* ================= RUNWAY ================= */
+.runway{
+position:absolute;
+bottom:0;
+width:100%;
+height:6px;
+background:linear-gradient(90deg,transparent,#d4af37,transparent);
+animation:glow 2s infinite;
+}
+@keyframes glow{
+0%,100%{opacity:0.3}
+50%{opacity:1}
+}
+
+/* ================= GLOBE ================= */
+.globe{
+font-size:100px;
+margin-top:20px;
+animation:rotateGlobe 10s linear infinite;
+}
+@keyframes rotateGlobe{
+0%{transform:rotateY(0deg)}
+100%{transform:rotateY(360deg)}
+}
+
+/* ================= SECTIONS ================= */
+section{
+padding:120px 20px;
+text-align:center;
+opacity:0;
+transform:translateY(80px);
+transition:1s;
+}
+section.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* ================= GLASS CARDS ================= */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:30px;
+margin:20px auto;
+max-width:350px;
+border-radius:20px;
+transition:0.4s;
+}
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 30px #d4af37;
+}
+
+/* ================= STATS ================= */
+.stats{
+display:flex;
+justify-content:center;
+gap:50px;
+flex-wrap:wrap;
+}
+.stat{
+font-size:50px;
+color:#d4af37;
+}
+
+/* ================= TESTIMONIALS ================= */
+.slider{
+max-width:600px;
+margin:auto;
+overflow:hidden;
+}
+.slides{
+display:flex;
+transition:0.8s;
+}
+.slide{
+min-width:100%;
+padding:30px;
+}
+
+/* ================= FLOATING BUTTONS ================= */
+.floating{
+position:fixed;
+right:20px;
+bottom:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+.floating a{
+background:#d4af37;
+color:black;
+padding:12px 16px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+.floating a:hover{
+transform:scale(1.1);
+}
+
+/* ================= BACK TO TOP ================= */
+#topBtn{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#d4af37;
+color:black;
+padding:12px 18px;
+border-radius:50%;
+cursor:pointer;
+display:none;
+}
+
+/* ================= FOOTER ================= */
+footer{
+background:black;
+padding:50px;
+text-align:center;
+opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+<div class="loader-plane">✈</div>
+<p style="margin-top:20px;color:#d4af37;">Loading United Immigration...</p>
+</div>
+
+<div id="progress"></div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#stats">Stats</a>
+<a href="#testimonials">Testimonials</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<header id="home">
+<div class="plane">✈</div>
+<div class="cloud" style="top:20%;animation-duration:100s;">☁</div>
+<div class="cloud" style="top:40%;animation-duration:120s;">☁</div>
+<div class="runway"></div>
+<h1>United Immigration</h1>
+<p>Your Gateway To Global Opportunities</p>
+<div class="globe">🌍</div>
+</header>
+
+<section id="services">
+<h2 style="color:#d4af37">Our Services</h2>
+<div class="card">Student Visa Assistance</div>
+<div class="card">Work Permit Processing</div>
+<div class="card">Tourist Visa Services</div>
+<div class="card">Permanent Residency Guidance</div>
+</section>
+
+<section id="stats">
+<h2 style="color:#d4af37">Our Achievements</h2>
+<div class="stats">
+<div>
+<div class="stat" data-target="1500">0</div>
+<p>Successful Visas</p>
+</div>
+<div>
+<div class="stat" data-target="25">0</div>
+<p>Countries Served</p>
+</div>
+<div>
+<div class="stat" data-target="10">0</div>
+<p>Years Experience</p>
+</div>
+</div>
+</section>
+
+<section id="testimonials">
+<h2 style="color:#d4af37">Client Testimonials</h2>
+<div class="slider">
+<div class="slides">
+<div class="slide">"Professional and fast visa approval process."</div>
+<div class="slide">"Highly trusted immigration consultants."</div>
+<div class="slide">"Excellent guidance from start to finish."</div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<h2 style="color:#d4af37">Contact Us</h2>
+<p>Call: +91 98*** ***45</p>
+<p>Email: info@unitedimmigration.com</p>
+</section>
+
+<div class="floating">
+<a href="#">WhatsApp</a>
+<a href="#">Instagram</a>
+</div>
+
+<div id="topBtn">↑</div>
+
+<footer>
+United Immigration © 2026  
+Professional Web Development
+</footer>
+
+<script>
+
+/* LOADER */
+window.addEventListener("load",()=>{
+document.getElementById("loader").style.display="none";
+});
+
+/* SCROLL PROGRESS */
+window.addEventListener("scroll",()=>{
+let scrollTop=document.documentElement.scrollTop;
+let scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+let progress=(scrollTop/scrollHeight)*100;
+document.getElementById("progress").style.width=progress+"%";
+
+if(scrollTop>300){
+document.getElementById("topBtn").style.display="block";
+}else{
+document.getElementById("topBtn").style.display="none";
+}
+});
+
+/* BACK TO TOP */
+document.getElementById("topBtn").onclick=()=>{
+window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* SCROLL REVEAL */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+sections.forEach(sec=>{
+if(sec.getBoundingClientRect().top<window.innerHeight-100){
+sec.classList.add("show");
+}
+});
+});
+
+/* COUNTERS */
+const counters=document.querySelectorAll(".stat");
+counters.forEach(counter=>{
+const update=()=>{
+const target=+counter.getAttribute("data-target");
+const count=+counter.innerText;
+const inc=target/200;
+if(count<target){
+counter.innerText=Math.ceil(count+inc);
+setTimeout(update,20);
+}else{
+counter.innerText=target;
+}
+};
+update();
+});
+
+/* TESTIMONIAL AUTO SLIDE */
+let index=0;
+setInterval(()=>{
+index++;
+if(index>2) index=0;
+document.querySelector(".slides").style.transform="translateX(-"+index*100+"%)";
+},4000);
+
+</script>
+
+</body>
+</html>
